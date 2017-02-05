@@ -10,15 +10,10 @@ import minefield.logical.Field;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -38,8 +33,11 @@ public class GameScreenController implements Initializable, ControlledScreen {
     static List gridElements;
     private static int numbBombs = 10;
     public static int COLS = 20;
-    public static int ROWS = 5;
+    public static int ROWS = 20;
     public static boolean inGame;
+    
+    double posIniX;
+    double posIniY;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,10 +70,25 @@ public class GameScreenController implements Initializable, ControlledScreen {
             gpField.setGridLinesVisible(true);
             apMain.getChildren().add(gpField);
 
-            gpField.translateXProperty().bind(apMain.widthProperty().subtract(gpField.widthProperty()).divide(2));
-            gpField.translateYProperty().bind(apMain.heightProperty().subtract(gpField.heightProperty()).divide(2));
+            //gpField.translateXProperty().bind(apMain.widthProperty().subtract(gpField.widthProperty()).divide(2));
+           // gpField.translateYProperty().bind(apMain.heightProperty().subtract(gpField.heightProperty()).divide(2));
 
-            
+           apMain.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    System.out.println("pressed");
+                    posIniX= e.getSceneX() - Minesweeper.primaryStage.getX();
+                    posIniY = e.getSceneY() - Minesweeper.primaryStage.getY();
+                }
+            });
+           apMain.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    System.out.println("drga");
+                    Minesweeper.primaryStage.setX(e.getSceneX() - posIniX );
+                    Minesweeper.primaryStage.setY(e.getSceneY() - posIniY );
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

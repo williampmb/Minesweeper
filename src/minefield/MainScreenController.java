@@ -33,8 +33,8 @@ public class MainScreenController implements Initializable, ControlledScreen {
     public void startGame(ActionEvent e) {
         myController.setScreen(Minesweeper.gameScreenId);
         //TODO - change the stage size and reorganize nodes
-        Minesweeper.primaryStage.setWidth(600);
-        Minesweeper.primaryStage.setHeight(600);
+        Minesweeper.primaryStage.setWidth(GameScreenController.COLS*Tile.TILESIZE);
+        Minesweeper.primaryStage.setHeight(GameScreenController.ROWS*Tile.TILESIZE);
 
     }
 

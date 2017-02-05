@@ -32,7 +32,7 @@ public class Minesweeper extends Application {
     public void start(Stage stage) {
         try {
             this.primaryStage = stage;
-            //primaryStage.initStyle(StageStyle.TRANSPARENT);
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
 
             ScreensController mainContainer = new ScreensController();
 
