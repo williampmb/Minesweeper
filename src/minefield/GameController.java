@@ -5,6 +5,8 @@
  */
 package minefield;
 
+import minefield.view.Tile;
+import minefield.logical.Field;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,11 +22,12 @@ import javafx.scene.layout.GridPane;
  *
  * @author William
  */
-public class GameController implements Initializable {
+public class GameController implements Initializable, ControlledScreen {
 
     @FXML
     AnchorPane apMain;
 
+    ScreensController myController;
     Field f;
     GridPane gpField;
     static List gridElements;
@@ -34,34 +37,38 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            GridPane gpField = new GridPane();
+            f = new Field(rows, cols, numbBombs);
+            int col = f.getWidth();
+            int row = f.getHeight();
 
-        GridPane gpField = new GridPane();
-        f = new Field(rows, cols, numbBombs);
-        int col = f.getWidth();
-        int row = f.getHeight();
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    int cell = f.getSpot(j, i);
+                    Tile create = new Tile(cell, i, j);
+                    gpField.add(create, j, i);
+                    create.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            hit(create);
+                        }
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                int cell = f.getSpot( j,i);
-                Tile create = new Tile(cell, i, j);
-                gpField.add(create, j, i);
-                create.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        hit(create);
-                    }
+                    });
 
-                });
-
+                }
             }
-        }
-        gridElements = gpField.getChildren();
-        gpField.setAlignment(Pos.CENTER_RIGHT);
-        gpField.setGridLinesVisible(true);
-        apMain.getChildren().add(gpField);
+            gridElements = gpField.getChildren();
+            gpField.setAlignment(Pos.CENTER_RIGHT);
+            gpField.setGridLinesVisible(true);
+            apMain.getChildren().add(gpField);
 
-        gpField.translateXProperty().bind(apMain.widthProperty().subtract(gpField.widthProperty()).divide(2));
-        gpField.translateYProperty().bind(apMain.heightProperty().subtract(gpField.heightProperty()).divide(2));
+            gpField.translateXProperty().bind(apMain.widthProperty().subtract(gpField.widthProperty()).divide(2));
+            gpField.translateYProperty().bind(apMain.heightProperty().subtract(gpField.heightProperty()).divide(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void hit(Tile target) {
@@ -89,6 +96,11 @@ public class GameController implements Initializable {
             System.out.println("Game Over");
         }
 
+    }
+
+    @Override
+    public void setScreenController(ScreensController page) {
+        myController = page;
     }
 
 }

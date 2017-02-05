@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package minefield;
+package minefield.logical;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -50,7 +50,7 @@ public class Field {
         this.height = height;
     }
 
-    Field(int height, int width, int bombs) {
+    public Field(int height, int width, int bombs) {
         this.field = new int[height][width];
         this.height = height;
         this.width = width;

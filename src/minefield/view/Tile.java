@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package minefield;
+package minefield.view;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -70,7 +70,7 @@ public class Tile extends Pane {
     }
     int posX, posY;
 
-    Tile(int value, int x, int y) {
+    public Tile(int value, int x, int y) {
         this.cellValue = value;
         // this.label.setText("?");
         //label.setTextFill(Color.RED);
@@ -84,14 +84,6 @@ public class Tile extends Pane {
         label.translateXProperty().bind(widthProperty().subtract(label.widthProperty()).divide(2));
         label.translateYProperty().bind(heightProperty().subtract(label.heightProperty()).divide(2));
         getChildren().add(label);
-//        setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                if(!hit){
-//                    label.setText(cellValue);
-//                }
-//            }
-//        });
     }
 
     public void showCellValue() {
