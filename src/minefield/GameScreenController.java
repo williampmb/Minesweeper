@@ -10,10 +10,15 @@ import minefield.logical.Field;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -22,7 +27,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author William
  */
-public class GameController implements Initializable, ControlledScreen {
+public class GameScreenController implements Initializable, ControlledScreen {
 
     @FXML
     AnchorPane apMain;
@@ -32,16 +37,18 @@ public class GameController implements Initializable, ControlledScreen {
     GridPane gpField;
     static List gridElements;
     private static int numbBombs = 10;
-    private static int cols = 20;
-    private static int rows = 5;
+    public static int COLS = 20;
+    public static int ROWS = 5;
+    public static boolean inGame;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             GridPane gpField = new GridPane();
-            f = new Field(rows, cols, numbBombs);
+            f = new Field(ROWS, COLS, numbBombs);
             int col = f.getWidth();
             int row = f.getHeight();
+            inGame = true;
 
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
@@ -51,7 +58,9 @@ public class GameController implements Initializable, ControlledScreen {
                     create.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            hit(create);
+                            if (inGame) {
+                                hit(create);
+                            }
                         }
 
                     });
@@ -59,12 +68,14 @@ public class GameController implements Initializable, ControlledScreen {
                 }
             }
             gridElements = gpField.getChildren();
-            gpField.setAlignment(Pos.CENTER_RIGHT);
+
             gpField.setGridLinesVisible(true);
             apMain.getChildren().add(gpField);
 
             gpField.translateXProperty().bind(apMain.widthProperty().subtract(gpField.widthProperty()).divide(2));
             gpField.translateYProperty().bind(apMain.heightProperty().subtract(gpField.heightProperty()).divide(2));
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,7 +104,8 @@ public class GameController implements Initializable, ControlledScreen {
         } else if (target.getCellValue() > 0) {
 
         } else if (target.getCellValue() == -1) {
-            System.out.println("Game Over");
+            inGame = false;
+            gameOver();
         }
 
     }
@@ -103,4 +115,8 @@ public class GameController implements Initializable, ControlledScreen {
         myController = page;
     }
 
+    private void gameOver() {
+        apMain.getChildren().add(new Label("GAME OVER"));
+    }
+    
 }

@@ -7,4 +7,4 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" fx:id="apMain" prefHeight="403.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minefield.GameController" />
+<AnchorPane id="AnchorPane" fx:id="apMain" prefHeight="403.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minefield.GameScreenController" />

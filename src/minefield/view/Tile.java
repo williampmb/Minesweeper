@@ -20,6 +20,7 @@ public class Tile extends Pane {
     Label label = new Label();
     Rectangle rec;
     boolean hit;
+    public static int TILESIZE = 25;
 
     public int getCellValue() {
         return cellValue;
@@ -75,7 +76,7 @@ public class Tile extends Pane {
         // this.label.setText("?");
         //label.setTextFill(Color.RED);
         this.hit = false;
-        this.rec = new Rectangle(25, 25);
+        this.rec = new Rectangle(TILESIZE, TILESIZE);
         this.posX = x;
         this.posY = y;
         rec.setFill(Color.BLACK);

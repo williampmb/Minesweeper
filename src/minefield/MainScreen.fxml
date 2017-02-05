@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="207.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minefield.MainScreenController">
+   <children>
+      <VBox alignment="CENTER" layoutX="54.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#startGame" text="Start Game" />
+            <Button mnemonicParsing="false" text="Exit" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
