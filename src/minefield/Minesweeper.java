@@ -26,7 +26,6 @@ public class Minesweeper extends Application {
     public static String mainScreenFile = "MainScreen.fxml";
     public static String gameScreenId = "game";
     public static String gameScreenFile = "GameScreen.fxml";
-    //TODO - how i will deal with gameover message.
 
     @Override
     public void start(Stage stage) {
@@ -40,13 +39,12 @@ public class Minesweeper extends Application {
             mainContainer.loadScreen(gameScreenId, gameScreenFile);
 
             mainContainer.setScreen(mainScreenId);
-//            mainContainer.setScreen(gameScreenId);
 
             Group root = new Group();
             root.getChildren().addAll(mainContainer);
-            //Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
 
             Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

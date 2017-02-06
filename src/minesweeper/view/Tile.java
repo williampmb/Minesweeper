@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package minefield.view;
+package minesweeper.view;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;

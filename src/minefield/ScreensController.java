@@ -17,7 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import minefield.view.Tile;
+import minesweeper.view.Tile;
 
 /**
  *
