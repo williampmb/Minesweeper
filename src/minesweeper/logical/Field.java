@@ -17,6 +17,15 @@ public class Field {
     private int bombs;
     private int width;
     private int height;
+    private int hiddenTitles;
+
+    public int getHiddenTitles() {
+        return hiddenTitles;
+    }
+
+    public void setHiddenTitles(int hiddenTitles) {
+        this.hiddenTitles = hiddenTitles;
+    }
 
     public int[][] getField() {
         return field;
@@ -55,6 +64,7 @@ public class Field {
         this.height = height;
         this.width = width;
         this.bombs = bombs;
+        this.hiddenTitles = width * height;
         createField();
     }
 
@@ -68,12 +78,13 @@ public class Field {
     }
 
     private void plantTheBombs() {
-        while (bombs != 0) {
+        int toPlantBomb = bombs;
+        while (toPlantBomb != 0) {
             int col = ThreadLocalRandom.current().nextInt(0, width - 1);
             int row = ThreadLocalRandom.current().nextInt(0, height - 1);
             if (field[row][col] != -1) {
                 field[row][col] = -1;
-                bombs--;
+                toPlantBomb--;
             }
         }
     }
@@ -117,8 +128,8 @@ public class Field {
         }
         return false;
     }
-    
-        void printMatrix() {
+
+    void printMatrix() {
         for (int row = 0; row < width; row++) {
             System.out.print("[");
             for (int col = 0; col < height; col++) {

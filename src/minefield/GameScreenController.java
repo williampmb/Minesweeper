@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -37,7 +39,7 @@ public class GameScreenController implements Initializable, ControlledScreen {
     public static int COLS = 20;
     public static int ROWS = 20;
     public static boolean inGame;
-    
+
     double posIniX;
     double posIniY;
 
@@ -64,6 +66,18 @@ public class GameScreenController implements Initializable, ControlledScreen {
                         }
 
                     });
+                    create.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                        @Override
+                        public void handle(KeyEvent event) {
+                            System.out.println(event.getCode() + " a");
+                        }
+                    });
+                    create.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                        @Override
+                        public void handle(KeyEvent event) {
+                            System.out.println(event.getCode() + " a");
+                        }
+                    });
 
                 }
             }
@@ -72,22 +86,33 @@ public class GameScreenController implements Initializable, ControlledScreen {
             gpField.setGridLinesVisible(true);
             apMain.getChildren().add(gpField);
 
-           apMain.setOnMousePressed(new EventHandler<MouseEvent>() {
+            apMain.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    posIniX= e.getSceneX() - Minesweeper.primaryStage.getX();
+                    posIniX = e.getSceneX() - Minesweeper.primaryStage.getX();
                     posIniY = e.getSceneY() - Minesweeper.primaryStage.getY();
                 }
             });
-           apMain.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            apMain.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    Minesweeper.primaryStage.setX(e.getSceneX() - posIniX );
-                    Minesweeper.primaryStage.setY(e.getSceneY() - posIniY );
+                    Minesweeper.primaryStage.setX(e.getSceneX() - posIniX);
+                    Minesweeper.primaryStage.setY(e.getSceneY() - posIniY);
                 }
             });
-           
-           
+
+            apMain.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if (event.getCode().equals(KeyCode.ESCAPE)) {
+                        returnMainScreen();
+                    } else if (event.getCode().equals(KeyCode.SPACE)) {
+                        restartGame();
+                    }
+                }
+
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,9 +141,12 @@ public class GameScreenController implements Initializable, ControlledScreen {
         } else if (target.getCellValue() > 0) {
 
         } else if (target.getCellValue() == -1) {
-            inGame = false;
+
             gameOver();
         }
+
+        win();
+        apMain.requestFocus();
 
     }
 
@@ -128,7 +156,24 @@ public class GameScreenController implements Initializable, ControlledScreen {
     }
 
     private void gameOver() {
+        inGame = false;
         apMain.getChildren().add(new Label("GAME OVER"));
     }
-    
+
+    private void win() {
+        f.setHiddenTitles(f.getHiddenTitles() - 1);
+        if (f.getBombs() == f.getHiddenTitles()) {
+            inGame = false;
+            apMain.getChildren().add(new Label("WIN!!"));
+        }
+    }
+
+    private void returnMainScreen() {
+        System.out.println("Return main Screen");
+    }
+
+    private void restartGame() {
+        System.out.println("Restart Game");
+    }
+
 }
