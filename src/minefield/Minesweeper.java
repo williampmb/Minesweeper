@@ -6,10 +6,12 @@
 package minefield;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +28,8 @@ public class Minesweeper extends Application {
     public static String mainScreenFile = "MainScreen.fxml";
     public static String gameScreenId = "game";
     public static String gameScreenFile = "GameScreen.fxml";
+    double posIniX;
+    double posIniY;
 
     @Override
     public void start(Stage stage) {
@@ -41,6 +45,21 @@ public class Minesweeper extends Application {
             mainContainer.setScreen(mainScreenId);
 
             Group root = new Group();
+            root.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    posIniX = e.getScreenX()- primaryStage.getX();
+                    posIniY = e.getScreenY() - primaryStage.getY();
+                }
+            });
+            root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    primaryStage.setX(e.getScreenX()- posIniX);
+                    primaryStage.setY(e.getScreenY() - posIniY);
+                }
+            });
+
             root.getChildren().addAll(mainContainer);
 
             Scene scene = new Scene(root);

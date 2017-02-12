@@ -35,9 +35,9 @@ public class GameScreenController implements Initializable, ControlledScreen {
     Field f;
     GridPane gpField;
     static List gridElements;
-    private static int numbBombs = 10;
-    public static int COLS = 20;
-    public static int ROWS = 20;
+    private static int numbBombs = 100;
+    public static int COLS = 50;
+    public static int ROWS = 50;
     public static boolean inGame;
 
     double posIniX;
@@ -86,20 +86,6 @@ public class GameScreenController implements Initializable, ControlledScreen {
             gpField.setGridLinesVisible(true);
             apMain.getChildren().add(gpField);
 
-            apMain.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    posIniX = e.getSceneX() - Minesweeper.primaryStage.getX();
-                    posIniY = e.getSceneY() - Minesweeper.primaryStage.getY();
-                }
-            });
-            apMain.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    Minesweeper.primaryStage.setX(e.getSceneX() - posIniX);
-                    Minesweeper.primaryStage.setY(e.getSceneY() - posIniY);
-                }
-            });
 
             apMain.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
                 @Override
