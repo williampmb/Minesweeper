@@ -28,6 +28,7 @@ public class Minesweeper extends Application {
     public static String mainScreenFile = "MainScreen.fxml";
     public static String gameScreenId = "game";
     public static String gameScreenFile = "GameScreen.fxml";
+    public static ScreensController mainContainer;
     double posIniX;
     double posIniY;
 
@@ -37,10 +38,10 @@ public class Minesweeper extends Application {
             this.primaryStage = stage;
             primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-            ScreensController mainContainer = new ScreensController();
+            mainContainer = new ScreensController();
 
             mainContainer.loadScreen(mainScreenId, mainScreenFile);
-            mainContainer.loadScreen(gameScreenId, gameScreenFile);
+            //mainContainer.loadScreen(gameScreenId, gameScreenFile);
 
             mainContainer.setScreen(mainScreenId);
 

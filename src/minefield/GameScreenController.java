@@ -86,7 +86,6 @@ public class GameScreenController implements Initializable, ControlledScreen {
             gpField.setGridLinesVisible(true);
             apMain.getChildren().add(gpField);
 
-
             apMain.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
@@ -155,11 +154,16 @@ public class GameScreenController implements Initializable, ControlledScreen {
     }
 
     private void returnMainScreen() {
+
+        myController.unlooadScreen(Minesweeper.gameScreenId);
+        myController.setScreen(Minesweeper.mainScreenId);
         System.out.println("Return main Screen");
     }
 
     private void restartGame() {
-        System.out.println("Restart Game");
+        myController.unlooadScreen(Minesweeper.gameScreenId);
+        myController.loadScreen(Minesweeper.gameScreenId, Minesweeper.gameScreenFile);
+        myController.setScreen(Minesweeper.gameScreenId);
     }
 
 }
